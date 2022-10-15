@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import 'package:calculator/components/accent_text_button_tile.dart';
+import 'package:calculator/components/week_text_button_tile.dart';
+import 'package:calculator/components/scrollable_horizontal_text.dart';
 import 'package:calculator/pages/home_page.dart';
 
 class CalculatorState extends State<HomePage> {
@@ -137,7 +140,8 @@ class CalculatorState extends State<HomePage> {
               double.parse(match.group(4)!), match.group(3)!);
 
           if (calculated > 0) {
-            formula = formula.replaceFirst(pattern, '+${calculated.toString()}');
+            formula =
+                formula.replaceFirst(pattern, '+${calculated.toString()}');
           } else {
             formula = formula.replaceFirst(pattern, calculated.toString());
           }
@@ -182,39 +186,6 @@ class CalculatorState extends State<HomePage> {
     }
   }
 
-  Widget _buildAccentTextTile(String text, {VoidCallback? onPressed}) {
-    return _buildGridTextTile(text, Colors.blueAccent, ValueKey('button-$text'),
-        onPressed: onPressed);
-  }
-
-  Widget _buildBlackTextTile(String text, {VoidCallback? onPressed}) {
-    return _buildGridTextTile(text, Colors.black54, ValueKey('button-$text'),
-        onPressed: onPressed);
-  }
-
-  Widget _buildGridTextTile(String text, Color color, Key key,
-      {VoidCallback? onPressed}) {
-    return Container(
-        margin: const EdgeInsets.all(2.0),
-        alignment: Alignment.center,
-        child: GridTile(
-          child: RawMaterialButton(
-            key: key,
-            constraints: const BoxConstraints.expand(),
-            onPressed: onPressed ?? () {},
-            elevation: 2.0,
-            fillColor: Colors.white,
-            padding: const EdgeInsets.all(18.0),
-            shape: const CircleBorder(),
-            child: Text(
-              text,
-              style: TextStyle(
-                  fontSize: 40, color: color, fontWeight: FontWeight.bold),
-            ),
-          ),
-        ));
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -226,88 +197,100 @@ class CalculatorState extends State<HomePage> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Container(
-              alignment: Alignment.topRight,
-              margin: const EdgeInsets.only(top: 32.0, bottom: 32.0),
-              child: SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  reverse: true,
-                  padding: const EdgeInsets.only(left: 16.0, right: 16.0),
-                  child: Text(
-                    _displayText,
-                    key: const ValueKey('formula'),
-                    textAlign: TextAlign.right,
-                    style:
-                    const TextStyle(fontSize: 50, color: Colors.blueAccent),
-                  )),
+            ScrollableHorizontalText(
+              title: _displayText,
+              color: Colors.blueAccent,
+              fontSize: 50,
+              paddingSize: 20.0,
+              reverse: true,
             ),
-            Container(
-              alignment: Alignment.topRight,
-              margin: const EdgeInsets.only(top: 2.0, bottom: 2.0),
-              child: SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  padding: const EdgeInsets.only(left: 2.0, right: 2.0),
-                  child: Text(
-                    _message,
-                    textAlign: TextAlign.right,
-                    style:
-                    const TextStyle(fontSize: 20, color: Colors.redAccent),
-                  )),
-            ),
+            ScrollableHorizontalText(
+                title: _message,
+                color: Colors.redAccent,
+                paddingSize: 2.0,
+                fontSize: 20),
             GridView.count(
               crossAxisCount: 4,
               crossAxisSpacing: 8.0,
               mainAxisSpacing: 8.0,
               shrinkWrap: true,
               children: [
-                _buildBlackTextTile('AC', onPressed: _allClear),
-                _buildBlackTextTile('C', onPressed: _clear),
-                _buildBlackTextTile('+/-', onPressed: _toggleSign),
-                _buildBlackTextTile('÷', onPressed: () {
-                  _addOperator(divideOperator);
-                }),
-                _buildAccentTextTile('7', onPressed: () {
-                  _addNumber(7);
-                }),
-                _buildAccentTextTile('8', onPressed: () {
-                  _addNumber(8);
-                }),
-                _buildAccentTextTile('9', onPressed: () {
-                  _addNumber(9);
-                }),
-                _buildBlackTextTile('×', onPressed: () {
-                  _addOperator(multiOperator);
-                }),
-                _buildAccentTextTile('4', onPressed: () {
-                  _addNumber(4);
-                }),
-                _buildAccentTextTile('5', onPressed: () {
-                  _addNumber(5);
-                }),
-                _buildAccentTextTile('6', onPressed: () {
-                  _addNumber(6);
-                }),
-                _buildBlackTextTile('-', onPressed: () {
-                  _addOperator(minusOperator);
-                }),
-                _buildAccentTextTile('1', onPressed: () {
-                  _addNumber(1);
-                }),
-                _buildAccentTextTile('2', onPressed: () {
-                  _addNumber(2);
-                }),
-                _buildAccentTextTile('3', onPressed: () {
-                  _addNumber(3);
-                }),
-                _buildBlackTextTile('+', onPressed: () {
-                  _addOperator(plusOperator);
-                }),
-                _buildAccentTextTile('0', onPressed: () {
-                  _addNumber(0);
-                }),
-                _buildAccentTextTile('.', onPressed: _addDecimalPoint),
-                _buildAccentTextTile('DE', onPressed: _deleteOneLetter),
-                _buildBlackTextTile('=', onPressed: _calculate),
+                WeekTextButtonTile(title: 'AC', onPressed: _allClear),
+                WeekTextButtonTile(title: 'C', onPressed: _clear),
+                WeekTextButtonTile(title: '+/-', onPressed: _toggleSign),
+                WeekTextButtonTile(
+                    title: '÷',
+                    onPressed: () {
+                      _addOperator(divideOperator);
+                    }),
+                AccentTextButtonTile(
+                    title: '7',
+                    onPressed: () {
+                      _addNumber(7);
+                    }),
+                AccentTextButtonTile(
+                    title: '8',
+                    onPressed: () {
+                      _addNumber(8);
+                    }),
+                AccentTextButtonTile(
+                    title: '9',
+                    onPressed: () {
+                      _addNumber(9);
+                    }),
+                WeekTextButtonTile(
+                    title: '×',
+                    onPressed: () {
+                      _addOperator(multiOperator);
+                    }),
+                AccentTextButtonTile(
+                    title: '4',
+                    onPressed: () {
+                      _addNumber(4);
+                    }),
+                AccentTextButtonTile(
+                    title: '5',
+                    onPressed: () {
+                      _addNumber(5);
+                    }),
+                AccentTextButtonTile(
+                    title: '6',
+                    onPressed: () {
+                      _addNumber(6);
+                    }),
+                WeekTextButtonTile(
+                    title: '-',
+                    onPressed: () {
+                      _addOperator(minusOperator);
+                    }),
+                AccentTextButtonTile(
+                    title: '1',
+                    onPressed: () {
+                      _addNumber(1);
+                    }),
+                AccentTextButtonTile(
+                    title: '2',
+                    onPressed: () {
+                      _addNumber(2);
+                    }),
+                AccentTextButtonTile(
+                    title: '3',
+                    onPressed: () {
+                      _addNumber(3);
+                    }),
+                WeekTextButtonTile(
+                    title: '+',
+                    onPressed: () {
+                      _addOperator(plusOperator);
+                    }),
+                AccentTextButtonTile(
+                    title: '0',
+                    onPressed: () {
+                      _addNumber(0);
+                    }),
+                AccentTextButtonTile(title: '.', onPressed: _addDecimalPoint),
+                AccentTextButtonTile(title: 'DE', onPressed: _deleteOneLetter),
+                WeekTextButtonTile(title: '=', onPressed: _calculate),
               ],
             )
           ],

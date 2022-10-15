@@ -3,102 +3,89 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'package:calculator/app.dart';
 
+import 'utils.dart';
+
 void main() {
   testWidgets('calculate(10+25)', (WidgetTester tester) async {
     tester.binding.window.physicalSizeTestValue = const Size(1080, 1920);
     await tester.pumpWidget(const CalculatorApp());
 
-    await tester.tap(find.byKey(const ValueKey('button-1')));
-    await tester.tap(find.byKey(const ValueKey('button-0')));
-    await tester.tap(find.byKey(const ValueKey('button-+')));
-    await tester.tap(find.byKey(const ValueKey('button-2')));
-    await tester.tap(find.byKey(const ValueKey('button-5')));
-    await tester.tap(find.byKey(const ValueKey('button-=')));
+    await tester.tap(Utils.findChildButtonByKeyString('tile-1'));
+    await tester.tap(Utils.findChildButtonByKeyString('tile-0'));
+    await tester.tap(Utils.findChildButtonByKeyString('tile-+'));
+    await tester.tap(Utils.findChildButtonByKeyString('tile-2'));
+    await tester.tap(Utils.findChildButtonByKeyString('tile-5'));
+    await tester.tap(Utils.findChildButtonByKeyString('tile-='));
     await tester.pump();
 
-    final formulaFinder = find.byKey(const ValueKey('formula'));
-    final formula = formulaFinder.evaluate().single.widget as Text;
-
-    expect(formula.data, '(10+25)=35');
+    expect(find.text('(10+25)=35'), findsOneWidget);
   });
 
   testWidgets('calculate(10-25)', (WidgetTester tester) async {
     tester.binding.window.physicalSizeTestValue = const Size(1080, 1920);
     await tester.pumpWidget(const CalculatorApp());
 
-    await tester.tap(find.byKey(const ValueKey('button-1')));
-    await tester.tap(find.byKey(const ValueKey('button-0')));
-    await tester.tap(find.byKey(const ValueKey('button--')));
-    await tester.tap(find.byKey(const ValueKey('button-2')));
-    await tester.tap(find.byKey(const ValueKey('button-5')));
-    await tester.tap(find.byKey(const ValueKey('button-=')));
+    await tester.tap(Utils.findChildButtonByKeyString('tile-1'));
+    await tester.tap(Utils.findChildButtonByKeyString('tile-0'));
+    await tester.tap(Utils.findChildButtonByKeyString('tile--'));
+    await tester.tap(Utils.findChildButtonByKeyString('tile-2'));
+    await tester.tap(Utils.findChildButtonByKeyString('tile-5'));
+    await tester.tap(Utils.findChildButtonByKeyString('tile-='));
     await tester.pump();
 
-    final formulaFinder = find.byKey(const ValueKey('formula'));
-    final formula = formulaFinder.evaluate().single.widget as Text;
-
-    expect(formula.data, '(10-25)=-15');
+    expect(find.text('(10-25)=-15'), findsOneWidget);
   });
 
   testWidgets('calculate(10*25)', (WidgetTester tester) async {
     tester.binding.window.physicalSizeTestValue = const Size(1080, 1920);
     await tester.pumpWidget(const CalculatorApp());
 
-    await tester.tap(find.byKey(const ValueKey('button-1')));
-    await tester.tap(find.byKey(const ValueKey('button-0')));
-    await tester.tap(find.byKey(const ValueKey('button-×')));
-    await tester.tap(find.byKey(const ValueKey('button-2')));
-    await tester.tap(find.byKey(const ValueKey('button-5')));
-    await tester.tap(find.byKey(const ValueKey('button-=')));
+    await tester.tap(Utils.findChildButtonByKeyString('tile-1'));
+    await tester.tap(Utils.findChildButtonByKeyString('tile-0'));
+    await tester.tap(Utils.findChildButtonByKeyString('tile-×'));
+    await tester.tap(Utils.findChildButtonByKeyString('tile-2'));
+    await tester.tap(Utils.findChildButtonByKeyString('tile-5'));
+    await tester.tap(Utils.findChildButtonByKeyString('tile-='));
     await tester.pump();
 
-    final formulaFinder = find.byKey(const ValueKey('formula'));
-    final formula = formulaFinder.evaluate().single.widget as Text;
-
-    expect(formula.data, '(10×25)=250');
+    expect(find.text('(10×25)=250'), findsOneWidget);
   });
 
   testWidgets('calculate(10/25)', (WidgetTester tester) async {
     tester.binding.window.physicalSizeTestValue = const Size(1080, 1920);
     await tester.pumpWidget(const CalculatorApp());
 
-    await tester.tap(find.byKey(const ValueKey('button-1')));
-    await tester.tap(find.byKey(const ValueKey('button-0')));
-    await tester.tap(find.byKey(const ValueKey('button-÷')));
-    await tester.tap(find.byKey(const ValueKey('button-2')));
-    await tester.tap(find.byKey(const ValueKey('button-5')));
-    await tester.tap(find.byKey(const ValueKey('button-=')));
+    await tester.tap(Utils.findChildButtonByKeyString('tile-1'));
+    await tester.tap(Utils.findChildButtonByKeyString('tile-0'));
+    await tester.tap(Utils.findChildButtonByKeyString('tile-÷'));
+    await tester.tap(Utils.findChildButtonByKeyString('tile-2'));
+    await tester.tap(Utils.findChildButtonByKeyString('tile-5'));
+    await tester.tap(Utils.findChildButtonByKeyString('tile-='));
     await tester.pump();
 
-    final formulaFinder = find.byKey(const ValueKey('formula'));
-    final formula = formulaFinder.evaluate().single.widget as Text;
-
-    expect(formula.data, '(10÷25)=0.400000');
+    expect(find.text('(10÷25)=0.400000'), findsOneWidget);
   });
 
   testWidgets('calculate(10+2*33-0.5/3)', (WidgetTester tester) async {
     tester.binding.window.physicalSizeTestValue = const Size(1080, 1920);
     await tester.pumpWidget(const CalculatorApp());
 
-    await tester.tap(find.byKey(const ValueKey('button-1')));
-    await tester.tap(find.byKey(const ValueKey('button-0')));
-    await tester.tap(find.byKey(const ValueKey('button-+')));
-    await tester.tap(find.byKey(const ValueKey('button-2')));
-    await tester.tap(find.byKey(const ValueKey('button-×')));
-    await tester.tap(find.byKey(const ValueKey('button-3')));
-    await tester.tap(find.byKey(const ValueKey('button-3')));
-    await tester.tap(find.byKey(const ValueKey('button--')));
-    await tester.tap(find.byKey(const ValueKey('button-0')));
-    await tester.tap(find.byKey(const ValueKey('button-.')));
-    await tester.tap(find.byKey(const ValueKey('button-5')));
-    await tester.tap(find.byKey(const ValueKey('button-÷')));
-    await tester.tap(find.byKey(const ValueKey('button-3')));
-    await tester.tap(find.byKey(const ValueKey('button-=')));
+    await tester.tap(Utils.findChildButtonByKeyString('tile-1'));
+    await tester.tap(Utils.findChildButtonByKeyString('tile-0'));
+    await tester.tap(Utils.findChildButtonByKeyString('tile-+'));
+    await tester.tap(Utils.findChildButtonByKeyString('tile-2'));
+    await tester.tap(Utils.findChildButtonByKeyString('tile-×'));
+    await tester.tap(Utils.findChildButtonByKeyString('tile-3'));
+    await tester.tap(Utils.findChildButtonByKeyString('tile-3'));
+    await tester.tap(Utils.findChildButtonByKeyString('tile--'));
+    await tester.tap(Utils.findChildButtonByKeyString('tile-0'));
+    await tester.tap(Utils.findChildButtonByKeyString('tile-.'));
+    await tester.tap(Utils.findChildButtonByKeyString('tile-5'));
+    await tester.tap(Utils.findChildButtonByKeyString('tile-÷'));
+    await tester.tap(Utils.findChildButtonByKeyString('tile-3'));
+    await tester.tap(Utils.findChildButtonByKeyString('tile-='));
     await tester.pump();
 
-    final formulaFinder = find.byKey(const ValueKey('formula'));
-    final formula = formulaFinder.evaluate().single.widget as Text;
-
-    expect(formula.data, '(10+2×33-0.5÷3)=75.8333');
+    expect(find.text('(10+2×33-0.5÷3)=75.8333'), findsOneWidget);
   });
 }
