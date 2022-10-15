@@ -3,6 +3,7 @@ import 'package:calculator/components/scrollable_horizontal_text.dart';
 import 'package:calculator/components/week_text_button_tile.dart';
 import 'package:calculator/pages/home_page.dart';
 import 'package:flutter/material.dart';
+import 'dart:math';
 
 class CalculatorState extends State<HomePage> {
   static const plusOperator = '+';
@@ -122,6 +123,11 @@ class CalculatorState extends State<HomePage> {
     });
   }
 
+  double _roundDouble(double value, int places){
+    num mod = pow(10.0, places);
+    return ((value * mod).round().toDouble() / mod);
+  }
+
   void _calculate() {
     var formula = _displayText.split(RegExp(r'=')).last;
     debugPrint('_calculate: formula=$formula');
@@ -158,7 +164,7 @@ class CalculatorState extends State<HomePage> {
         }
       }
 
-      final result = double.parse(formula);
+      final result = _roundDouble(double.parse(formula), 6);
       debugPrint('_calculate: result=$result');
 
       setState(() {
@@ -167,7 +173,7 @@ class CalculatorState extends State<HomePage> {
           return;
         }
 
-        _displayText = '($_displayText)=${result.toStringAsPrecision(6)}';
+        _displayText = '($_displayText)=$result';
       });
     } catch (e, stackTrace) {
       debugPrint('$e\n$stackTrace');

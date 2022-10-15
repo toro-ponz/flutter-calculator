@@ -62,7 +62,7 @@ void main() {
     await tester.tap(Utils.findChildButtonByKeyString('tile-='));
     await tester.pump();
 
-    expect(find.text('(10÷25)=0.400000'), findsOneWidget);
+    expect(find.text('(10÷25)=0.4'), findsOneWidget);
   });
 
   testWidgets('calculate(10+2*33-0.5/3)', (WidgetTester tester) async {
@@ -85,6 +85,6 @@ void main() {
     await tester.tap(Utils.findChildButtonByKeyString('tile-='));
     await tester.pump();
 
-    expect(find.text('(10+2×33-0.5÷3)=75.8333'), findsOneWidget);
+    expect(find.text('(10+2×33-0.5÷3)=75.833333'), findsOneWidget);
   });
 }
