@@ -82,10 +82,6 @@ class CalculatorState extends State<HomePage> {
   }
 
   void _toggleSign() {
-    if (_displayText == '0') {
-      return;
-    }
-
     final pattern = RegExp(r'([+-])?(\d+(\.\d+)?)$');
     final match = pattern.firstMatch(_displayText);
 
