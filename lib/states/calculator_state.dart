@@ -126,6 +126,12 @@ class CalculatorState extends State<HomePage> {
     var formula = _displayText.split(RegExp(r'=')).last;
     debugPrint('_calculate: formula=$formula');
 
+    final String lastLetter = formula.substring(formula.length - 1);
+    final int? parsed = int.tryParse(lastLetter);
+    if (parsed == null) {
+      return;
+    }
+
     try {
       final patterns = [
         RegExp(r'([+-]?\d+(\.\d+)?)([×÷])([+-]?\d+(\.\d+)?)'),
