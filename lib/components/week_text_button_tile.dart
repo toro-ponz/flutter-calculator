@@ -5,16 +5,24 @@ class WeekTextButtonTile extends StatelessWidget {
   final Color color = Colors.black54;
 
   final String title;
+  final double? fontSize;
   final VoidCallback? onPressed;
 
-  const WeekTextButtonTile({super.key, required this.title, this.onPressed});
+  const WeekTextButtonTile({
+    super.key,
+    required this.title,
+    this.fontSize,
+    this.onPressed,
+  });
 
   @override
   Widget build(BuildContext context) {
     return GridTextTile(
-        title: title,
-        color: color,
-        onPressed: onPressed,
-        key: Key('tile-$title'));
+      title: title,
+      color: color,
+      fontSize: fontSize,
+      onPressed: onPressed,
+      key: Key('tile-$title'),
+    );
   }
 }

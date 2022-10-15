@@ -1,9 +1,11 @@
+import 'dart:math';
+
 import 'package:calculator/components/accent_text_button_tile.dart';
 import 'package:calculator/components/scrollable_horizontal_text.dart';
 import 'package:calculator/components/week_text_button_tile.dart';
 import 'package:calculator/pages/home_page.dart';
 import 'package:flutter/material.dart';
-import 'dart:math';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CalculatorState extends State<HomePage> {
   static const plusOperator = '+';
@@ -124,7 +126,7 @@ class CalculatorState extends State<HomePage> {
     });
   }
 
-  double _roundDouble(double value, int places){
+  double _roundDouble(double value, int places) {
     num mod = pow(10.0, places);
     return ((value * mod).round().toDouble() / mod);
   }
@@ -205,113 +207,187 @@ class CalculatorState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    ScreenUtil.init(
+      context,
+      designSize: const Size(1080, 1920),
+      minTextAdapt: true,
+    );
+
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            ScrollableHorizontalText(
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
+          Expanded(
+            child: ScrollableHorizontalText(
               title: _displayText,
               color: Colors.blueAccent,
-              fontSize: 50,
-              paddingSize: 20.0,
+              fontSize: 170.sp,
+              horizontalPadding: 50.h,
               reverse: true,
             ),
-            ScrollableHorizontalText(
-                title: _message,
-                color: Colors.redAccent,
-                paddingSize: 2.0,
-                fontSize: 20),
-            GridView.count(
-              crossAxisCount: 4,
-              crossAxisSpacing: 8.0,
-              mainAxisSpacing: 8.0,
-              shrinkWrap: true,
-              children: [
-                WeekTextButtonTile(title: 'AC', onPressed: _allClear),
-                WeekTextButtonTile(title: 'C', onPressed: _clear),
-                WeekTextButtonTile(title: '+/-', onPressed: _toggleSign),
-                WeekTextButtonTile(
-                    title: '÷',
-                    onPressed: () {
-                      _addOperator(divideOperator);
-                    }),
-                AccentTextButtonTile(
-                    title: '7',
-                    onPressed: () {
-                      _addNumber(7);
-                    }),
-                AccentTextButtonTile(
-                    title: '8',
-                    onPressed: () {
-                      _addNumber(8);
-                    }),
-                AccentTextButtonTile(
-                    title: '9',
-                    onPressed: () {
-                      _addNumber(9);
-                    }),
-                WeekTextButtonTile(
-                    title: '×',
-                    onPressed: () {
-                      _addOperator(multiOperator);
-                    }),
-                AccentTextButtonTile(
-                    title: '4',
-                    onPressed: () {
-                      _addNumber(4);
-                    }),
-                AccentTextButtonTile(
-                    title: '5',
-                    onPressed: () {
-                      _addNumber(5);
-                    }),
-                AccentTextButtonTile(
-                    title: '6',
-                    onPressed: () {
-                      _addNumber(6);
-                    }),
-                WeekTextButtonTile(
-                    title: '-',
-                    onPressed: () {
-                      _addOperator(minusOperator);
-                    }),
-                AccentTextButtonTile(
-                    title: '1',
-                    onPressed: () {
-                      _addNumber(1);
-                    }),
-                AccentTextButtonTile(
-                    title: '2',
-                    onPressed: () {
-                      _addNumber(2);
-                    }),
-                AccentTextButtonTile(
-                    title: '3',
-                    onPressed: () {
-                      _addNumber(3);
-                    }),
-                WeekTextButtonTile(
-                    title: '+',
-                    onPressed: () {
-                      _addOperator(plusOperator);
-                    }),
-                AccentTextButtonTile(
-                    title: '0',
-                    onPressed: () {
-                      _addNumber(0);
-                    }),
-                AccentTextButtonTile(title: '.', onPressed: _addDecimalPoint),
-                AccentTextButtonTile(title: 'DE', onPressed: _backspace),
-                WeekTextButtonTile(title: '=', onPressed: _calculate),
-              ],
-            )
-          ],
-        ),
+          ),
+          const Divider(
+            height: 1,
+            thickness: 1,
+            color: Colors.grey,
+          ),
+          Container(
+            margin: EdgeInsets.symmetric(vertical: 15.h),
+            child: ScrollableHorizontalText(
+              title: _message,
+              color: Colors.redAccent,
+              fontSize: 50.sp,
+              horizontalPadding: 25.w,
+            ),
+          ),
+          GridView.count(
+            padding: EdgeInsets.symmetric(vertical: 25.h),
+            crossAxisCount: 4,
+            crossAxisSpacing: 10.w,
+            mainAxisSpacing: 10.w,
+            shrinkWrap: true,
+            children: [
+              WeekTextButtonTile(
+                title: 'AC',
+                fontSize: 100.sp,
+                onPressed: _allClear,
+              ),
+              WeekTextButtonTile(
+                title: 'C',
+                fontSize: 100.sp,
+                onPressed: _clear,
+              ),
+              WeekTextButtonTile(
+                title: '+/-',
+                fontSize: 100.sp,
+                onPressed: _toggleSign,
+              ),
+              WeekTextButtonTile(
+                title: '÷',
+                fontSize: 100.sp,
+                onPressed: () {
+                  _addOperator(divideOperator);
+                },
+              ),
+              AccentTextButtonTile(
+                title: '7',
+                fontSize: 100.sp,
+                onPressed: () {
+                  _addNumber(7);
+                },
+              ),
+              AccentTextButtonTile(
+                title: '8',
+                fontSize: 100.sp,
+                onPressed: () {
+                  _addNumber(8);
+                },
+              ),
+              AccentTextButtonTile(
+                title: '9',
+                fontSize: 100.sp,
+                onPressed: () {
+                  _addNumber(9);
+                },
+              ),
+              WeekTextButtonTile(
+                title: '×',
+                fontSize: 100.sp,
+                onPressed: () {
+                  _addOperator(multiOperator);
+                },
+              ),
+              AccentTextButtonTile(
+                title: '4',
+                fontSize: 100.sp,
+                onPressed: () {
+                  _addNumber(4);
+                },
+              ),
+              AccentTextButtonTile(
+                title: '5',
+                fontSize: 100.sp,
+                onPressed: () {
+                  _addNumber(5);
+                },
+              ),
+              AccentTextButtonTile(
+                title: '6',
+                fontSize: 100.sp,
+                onPressed: () {
+                  _addNumber(6);
+                },
+              ),
+              WeekTextButtonTile(
+                title: '-',
+                fontSize: 100.sp,
+                onPressed: () {
+                  _addOperator(minusOperator);
+                },
+              ),
+              AccentTextButtonTile(
+                title: '1',
+                fontSize: 100.sp,
+                onPressed: () {
+                  _addNumber(1);
+                },
+              ),
+              AccentTextButtonTile(
+                title: '2',
+                fontSize: 100.sp,
+                onPressed: () {
+                  _addNumber(2);
+                },
+              ),
+              AccentTextButtonTile(
+                title: '3',
+                fontSize: 100.sp,
+                onPressed: () {
+                  _addNumber(3);
+                },
+              ),
+              WeekTextButtonTile(
+                title: '+',
+                fontSize: 100.sp,
+                onPressed: () {
+                  _addOperator(plusOperator);
+                },
+              ),
+              AccentTextButtonTile(
+                title: '0',
+                fontSize: 100.sp,
+                onPressed: () {
+                  _addNumber(0);
+                },
+              ),
+              AccentTextButtonTile(
+                title: '.',
+                fontSize: 100.sp,
+                onPressed: _addDecimalPoint,
+              ),
+              AccentTextButtonTile(
+                title: 'DE',
+                fontSize: 100.sp,
+                onPressed: _backspace,
+              ),
+              WeekTextButtonTile(
+                title: '=',
+                fontSize: 100.sp,
+                onPressed: _calculate,
+              ),
+            ],
+          ),
+          Container(
+            margin: EdgeInsets.symmetric(vertical: 20.h),
+            child: ScrollableHorizontalText(
+              title: '© 2022 toro_ponz',
+              color: Colors.grey,
+              fontSize: 50.sp,
+              horizontalPadding: 25.w,
+            ),
+          ),
+        ],
       ),
     );
   }

@@ -8,8 +8,7 @@ void main() {
   WidgetsFlutterBinding.ensureInitialized();
 
   if (Platform.isWindows) {
-    setWindowMinSize(const Size(540, 960));
-    setWindowMaxSize(const Size(540, 960));
+    setWindowMinSize(const Size(405, 720));
   }
 
   runApp(const CalculatorApp());
