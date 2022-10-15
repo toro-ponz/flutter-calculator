@@ -66,6 +66,9 @@ class CalculatorState extends State<HomePage> {
     final match = pattern.firstMatch(_displayText);
 
     if (match == null) {
+      setState(() {
+        _displayText += '0.';
+      });
       return;
     }
 

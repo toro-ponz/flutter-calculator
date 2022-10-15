@@ -77,7 +77,6 @@ void main() {
     await tester.tap(Utils.findChildButtonByKeyString('tile-3'));
     await tester.tap(Utils.findChildButtonByKeyString('tile-3'));
     await tester.tap(Utils.findChildButtonByKeyString('tile--'));
-    await tester.tap(Utils.findChildButtonByKeyString('tile-0'));
     await tester.tap(Utils.findChildButtonByKeyString('tile-.'));
     await tester.tap(Utils.findChildButtonByKeyString('tile-5'));
     await tester.tap(Utils.findChildButtonByKeyString('tile-÷'));
