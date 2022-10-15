@@ -49,10 +49,6 @@ class CalculatorState extends State<HomePage> {
   }
 
   void _addOperator(String operator) {
-    if (_displayText == '0') {
-      return;
-    }
-
     final String lastLetter = _displayText.substring(_displayText.length - 1);
     final int? parsed = int.tryParse(lastLetter);
 
