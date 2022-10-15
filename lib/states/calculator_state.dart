@@ -97,7 +97,11 @@ class CalculatorState extends State<HomePage> {
     });
   }
 
-  void _deleteOneLetter() {
+  void _backspace() {
+    setState(() {
+      _message = '';
+    });
+
     if (_displayText.isEmpty) {
       return;
     }
@@ -289,7 +293,7 @@ class CalculatorState extends State<HomePage> {
                       _addNumber(0);
                     }),
                 AccentTextButtonTile(title: '.', onPressed: _addDecimalPoint),
-                AccentTextButtonTile(title: 'DE', onPressed: _deleteOneLetter),
+                AccentTextButtonTile(title: 'DE', onPressed: _backspace),
                 WeekTextButtonTile(title: '=', onPressed: _calculate),
               ],
             )
