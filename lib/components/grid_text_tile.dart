@@ -25,7 +25,7 @@ class GridTextTile extends StatelessWidget {
             child: Text(
               title,
               style: TextStyle(
-                  fontSize: 40, color: color, fontWeight: FontWeight.bold),
+                  fontSize: 35, color: color, fontWeight: FontWeight.bold),
             ),
           ),
         ));
