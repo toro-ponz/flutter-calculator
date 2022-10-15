@@ -107,8 +107,9 @@ class CalculatorState extends State<HomePage> {
     setState(() {
       _displayText = _displayText.substring(0, _displayText.length - 1);
 
-      if (lastLetter == ')') {
-        _displayText = _displayText.replaceFirst('(', '');
+      // remove '()'
+      if (lastLetter == '=') {
+        _displayText = _displayText.substring(1, _displayText.length - 1);
       }
 
       if (_displayText.isEmpty) {
