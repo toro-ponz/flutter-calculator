@@ -1,9 +1,8 @@
-import 'package:flutter/material.dart';
-
 import 'package:calculator/components/accent_text_button_tile.dart';
-import 'package:calculator/components/week_text_button_tile.dart';
 import 'package:calculator/components/scrollable_horizontal_text.dart';
+import 'package:calculator/components/week_text_button_tile.dart';
 import 'package:calculator/pages/home_page.dart';
+import 'package:flutter/material.dart';
 
 class CalculatorState extends State<HomePage> {
   static const plusOperator = '+';

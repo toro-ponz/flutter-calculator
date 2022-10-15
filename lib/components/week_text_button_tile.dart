@@ -1,6 +1,5 @@
-import 'package:flutter/material.dart';
-
 import 'package:calculator/components/grid_text_tile.dart';
+import 'package:flutter/material.dart';
 
 class WeekTextButtonTile extends StatelessWidget {
   final Color color = Colors.black54;

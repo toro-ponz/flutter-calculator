@@ -1,7 +1,6 @@
+import 'package:calculator/app.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-import 'package:calculator/app.dart';
 
 import 'utils.dart';
 
