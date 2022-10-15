@@ -64,10 +64,15 @@ class CalculatorState extends State<HomePage> {
   }
 
   void _addDecimalPoint() {
-    final String lastLetter = _displayText.substring(_displayText.length - 1);
-    final int? parsed = int.tryParse(lastLetter);
+    final pattern = RegExp(r'([+-])?(\d+(\.\d+)?)$');
+    final match = pattern.firstMatch(_displayText);
 
-    if (parsed == null) {
+    if (match == null) {
+      return;
+    }
+
+    final value = match.group(0)!;
+    if (value.contains('.')) {
       return;
     }
 
