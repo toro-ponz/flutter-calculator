@@ -141,7 +141,8 @@ class CalculatorState extends State<HomePage> {
       return;
     }
 
-    final formula = Formula(lastFormulaText.replaceAll('×', '*').replaceAll('÷', '/'));
+    final formula =
+        Formula(lastFormulaText.replaceAll('×', '*').replaceAll('÷', '/'));
 
     try {
       final result = formula.calculate();

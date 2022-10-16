@@ -6,7 +6,7 @@ class Formula {
   bool calculable() {
     try {
       calculate();
-    } catch(e) {
+    } catch (e) {
       return false;
     }
 
