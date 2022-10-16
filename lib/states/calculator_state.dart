@@ -24,7 +24,7 @@ class CalculatorState extends State<HomePage> {
   }
 
   void _clear() {
-    var lastFormula = _displayText.split(RegExp(r'=')).last;
+    final lastFormula = _displayText.split(RegExp('=')).last;
     setState(() {
       _displayText = lastFormula;
       _message = '';
@@ -127,12 +127,12 @@ class CalculatorState extends State<HomePage> {
   }
 
   double _roundDouble(double value, int places) {
-    num mod = pow(10.0, places);
-    return ((value * mod).round().toDouble() / mod);
+    final num mod = pow(10.0, places);
+    return (value * mod).round().toDouble() / mod;
   }
 
   void _calculate() {
-    var lastFormulaText = _displayText.split(RegExp(r'=')).last;
+    final lastFormulaText = _displayText.split(RegExp('=')).last;
 
     final String lastLetter =
         lastFormulaText.substring(lastFormulaText.length - 1);
@@ -149,7 +149,8 @@ class CalculatorState extends State<HomePage> {
       final roundedResult = _roundDouble(result, 6);
 
       debugPrint(
-          '_calculate: formula=$formula result=$result, roundedResult=$roundedResult');
+        '_calculate: formula=$formula result=$result, roundedResult=$roundedResult',
+      );
 
       setState(() {
         if (roundedResult == roundedResult.floorToDouble()) {
@@ -161,7 +162,8 @@ class CalculatorState extends State<HomePage> {
       });
     } catch (e, stackTrace) {
       debugPrint(
-          '_calculate: Failed calculate. lastFormulaText=$lastFormulaText => $e\n$stackTrace');
+        '_calculate: Failed calculate. lastFormulaText=$lastFormulaText => $e\n$stackTrace',
+      );
       _setMessage(e.toString().replaceAll('\n', ' '));
       return;
     }
@@ -178,7 +180,6 @@ class CalculatorState extends State<HomePage> {
     return Scaffold(
       body: SafeArea(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Expanded(

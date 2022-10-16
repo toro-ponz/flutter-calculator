@@ -2,7 +2,7 @@ import 'package:calculator/components/grid_text_tile.dart';
 import 'package:flutter/material.dart';
 
 class WeekTextButtonTile extends StatelessWidget {
-  final Color color = Colors.black54;
+  Color get color => Colors.black54;
 
   final String title;
   final double? fontSize;

@@ -23,7 +23,6 @@ class GridTextTile extends StatelessWidget {
           key: Key('$title-button'),
           constraints: const BoxConstraints.expand(),
           onPressed: onPressed ?? () {},
-          elevation: 2.0,
           fillColor: Colors.white,
           shape: const CircleBorder(),
           child: Text(

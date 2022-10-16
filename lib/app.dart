@@ -9,7 +9,7 @@ class CalculatorApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    windowsAppBuilder(context, child) => Container(
+    ColoredBox windowsAppBuilder(_, Widget? child) => ColoredBox(
           color: const Color(0xFFFAFAFA),
           child: Center(
             child: AspectRatio(
@@ -19,7 +19,7 @@ class CalculatorApp extends StatelessWidget {
           ),
         );
 
-    screenBuilder(context, child) => MaterialApp(
+    MaterialApp screenBuilder(_, Widget? child) => MaterialApp(
           title: 'Calculator',
           builder: Platform.isWindows ? windowsAppBuilder : null,
           theme: ThemeData(

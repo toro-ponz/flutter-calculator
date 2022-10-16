@@ -56,12 +56,14 @@ class Formula {
       case '/':
         if (right == 0) {
           throw Exception(
-              'Formula@_calculateSingle: Invalid formula, zero divide ($left $operator $right).');
+            'Formula@_calculateSingle: Invalid formula, zero divide ($left $operator $right).',
+          );
         }
         return left / right;
       default:
         throw Exception(
-            'Formula@_calculateSingle: Invalid formula ($left $operator $right).');
+          'Formula@_calculateSingle: Invalid formula ($left $operator $right).',
+        );
     }
   }
 

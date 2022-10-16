@@ -2,7 +2,7 @@ import 'package:calculator/components/grid_text_tile.dart';
 import 'package:flutter/material.dart';
 
 class AccentTextButtonTile extends StatelessWidget {
-  final Color color = Colors.blueAccent;
+  Color get color => Colors.blueAccent;
 
   final String title;
   final double? fontSize;
