@@ -2,7 +2,7 @@ import 'package:calculator/models/formula.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  group('formula', () {
+  group('Formula', () {
     group('calculate', () {
       test('Only one num.', () {
         expect(Formula('34').calculate(), 34);
