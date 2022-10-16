@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:calculator/components/accent_text_button_tile.dart';
 import 'package:calculator/components/scrollable_horizontal_text.dart';
 import 'package:calculator/components/week_text_button_tile.dart';
+import 'package:calculator/models/formula.dart';
 import 'package:calculator/pages/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -131,76 +132,37 @@ class CalculatorState extends State<HomePage> {
   }
 
   void _calculate() {
-    var formula = _displayText.split(RegExp(r'=')).last;
-    debugPrint('_calculate: formula=$formula');
+    var lastFormulaText = _displayText.split(RegExp(r'=')).last;
 
-    final String lastLetter = formula.substring(formula.length - 1);
+    final String lastLetter =
+        lastFormulaText.substring(lastFormulaText.length - 1);
     final int? parsed = int.tryParse(lastLetter);
     if (parsed == null) {
       return;
     }
 
+    final formula = Formula(lastFormulaText.replaceAll('×', '*').replaceAll('÷', '/'));
+
     try {
-      final patterns = [
-        RegExp(r'([+-]?\d+(\.\d+)?)([×÷])([+-]?\d+(\.\d+)?)'),
-        RegExp(r'([+-]?\d+(\.\d+)?)([+-])([+-]?\d+(\.\d+)?)'),
-      ];
+      final result = formula.calculate();
+      final roundedResult = _roundDouble(result, 6);
 
-      for (final pattern in patterns) {
-        while (true) {
-          final match = pattern.firstMatch(formula);
-
-          if (match == null) {
-            break;
-          }
-
-          final calculated = _calculateFormula(double.parse(match.group(1)!),
-              double.parse(match.group(4)!), match.group(3)!);
-
-          if (calculated > 0) {
-            formula =
-                formula.replaceFirst(pattern, '+${calculated.toString()}');
-          } else {
-            formula = formula.replaceFirst(pattern, calculated.toString());
-          }
-        }
-      }
-
-      final result = _roundDouble(double.parse(formula), 6);
-      debugPrint('_calculate: result=$result');
+      debugPrint(
+          '_calculate: formula=$formula result=$result, roundedResult=$roundedResult');
 
       setState(() {
-        if (result == result.floorToDouble()) {
-          _displayText = '($_displayText)=${result.floor()}';
+        if (roundedResult == roundedResult.floorToDouble()) {
+          _displayText = '($_displayText)=${roundedResult.floor()}';
           return;
         }
 
-        _displayText = '($_displayText)=$result';
+        _displayText = '($_displayText)=$roundedResult';
       });
     } catch (e, stackTrace) {
-      debugPrint('$e\n$stackTrace');
+      debugPrint(
+          '_calculate: Failed calculate. lastFormulaText=$lastFormulaText => $e\n$stackTrace');
       _setMessage(e.toString().replaceAll('\n', ' '));
       return;
-    }
-  }
-
-  double _calculateFormula(double left, double right, String operator) {
-    switch (operator) {
-      case plusOperator:
-        return left + right;
-      case minusOperator:
-        return left - right;
-      case multiOperator:
-        return left * right;
-      case divideOperator:
-        if (right == 0) {
-          throw Exception(
-              '_calculateFormula: Invalid formula, zero divide ($left $operator $right).');
-        }
-        return left / right;
-      default:
-        throw Exception(
-            '_calculateFormula: Invalid formula ($left $operator $right).');
     }
   }
 
